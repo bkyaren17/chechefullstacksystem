@@ -79,3 +79,14 @@ Antes de começar, certifique-se de ter instalado:
 ```bash
 git clone https://github.com/bkyaren17/chechefullstacksystem.git
 cd chechefullstacksystem
+
+
+//rodar o projecto digite:
+cd backend/minha-api
+
+Instalar as dependências
+npm install
+
+att:antes de tudo criar a base de no mongoose e conetar com a sua,
+
+
