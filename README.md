@@ -74,15 +74,74 @@ Antes de começar, certifique-se de ter instalado:
 
 ## 🚀 Instalação e Execução
 
-### 1️⃣ Clonar o Repositório
+#Configuração do banco de dados MongoDB
+
+Nome do banco de dados: `crechesystemfullstack`
+
+## Coleções e campos
+
+O aplicativo usa estas coleções do MongoDB:
+
+- `usuários`
+  - `nome`, `email`, `senha`, `telefone`, `foto`, `tipo`, `status`, carimbos de data e hora
+- `alunos`
+  - `nome`, `data_nascimento`, `turma`, `responsavel`, `contato`, `ativo`, timestamps
+- `educadores`
+  - `nome`, `email`, `funcao`, `especialidade`, `telefone`, `turmas`, `ativo`, timestamps
+- `turmas`
+  - `nome`, `descricao`, `educador`, `alunos`, `capacidade`, `sala`, `horario`, `ativo`, timestamps
+- `frequências`
+  - `aluno`, `dados`, `status`, `justificativa`, `registrado_por`, carimbos de data/hora
+- `pagamentos`
+  - `aluno`, `valor`, `mes`, `ano`, `tipo`, `observacao`, `status`, `data_pagamento`, `metodo_pagamento`, timestamps
+- `administradores`
+  - `nome`, `email`, `senha`, `role`, `status`, carimbos de data e hora
+
+Os modelos Mongoose definem o esquema ativo e os nomes das coleções. O arquivo `src/config/database.schema.js` documenta a estrutura do banco de dados usada pela configuração da primeira execução.
+
+## Criação do banco de dados pela primeira vez
+
+Execute estes comandos a partir de `backend/minha-api`:
 
 ```bash
-git clone https://github.com/bkyaren17/chechefullstacksystem.git
-cd chechefullstacksystem
+npm install
+npm run db:create
+npm run dev
+```
+
+`npm run db:create` conecta-se ao URI do MongoDB em `.env`, cria as coleções e índices necessários e inicializa o primeiro usuário administrador, caso ele ainda não exista.
+
+## Variáveis ​​de ambiente
+
+Obrigatórias:
+
+```bash
+MONGO_URI=mongodb+srv://<usuário>:<senha>@<cluster>/<banco de dados>?retryWrites=true&w=majority
+JWT_SECRET=<segredo aleatório>
+```
+
+Opcional: sobrescrita da senha de administrador na primeira execução:
+
+```bash
+DEFAULT_ADMIN_NAME=Administrador
+DEFAULT_ADMIN_EMAIL=admin@creche.com
+DEFAULT_ADMIN_PASSWORD=Admin@123456
+```
+
+Altere a senha padrão do administrador após o primeiro login.
+
+## Login de administrador padrão
+
+Se não houver um administrador, a configuração cria:
+
+```text
+Email: admin@creche.com
+Senha: Admin@123456
+Função: admin
+```
 
 
-//rodar o projecto digite:
-cd backend/minha-api
+
 
 Instalar as dependências
 npm install
